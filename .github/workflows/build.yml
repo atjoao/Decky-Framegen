@@ -71,6 +71,10 @@ jobs:
       shell: pwsh
       run: Compress-Archive -Path DLSSBIN\* -DestinationPath DLSSBIN.zip
 
+    - name: Show files
+      run: |
+        dir
+        
     - name: Upload artifacts (dlss enabler)
       uses: actions/upload-artifact@v4
       with:
