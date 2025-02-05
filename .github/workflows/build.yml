@@ -70,7 +70,7 @@ jobs:
     - name: Create fgmod
       shell: pwsh
       run: |
-        New-Item -Path DLSSBIN\fgmod -ItemType File -Force
+        New-Item -Path .\DLSSBIN\fgmod -ItemType File -Force
     
     - name: Create ZIP (DLSSEnabler)
       shell: pwsh
