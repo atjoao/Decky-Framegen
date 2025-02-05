@@ -8,8 +8,8 @@ from urllib.request import urlopen
 class Plugin:
     async def _main(self):
         decky.logger.info("Checking for bin directory")
-        if not os.path.exists(decky.DECKY_PLUGIN_DIR / "bin"):
-            os.makedirs(decky.DECKY_PLUGIN_DIR / "bin")
+        if not os.path.exists(Path(decky.DECKY_PLUGIN_DIR) / "bin"):
+            os.makedirs(Path(decky.DECKY_PLUGIN_DIR) / "bin")
             decky.logger.info("Created bin directory")
             with open("assets.zip", "wb") as f:
                 ## remember to remove hardcoded value
