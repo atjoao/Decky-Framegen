@@ -72,12 +72,14 @@ jobs:
       shell: pwsh
       run: Compress-Archive -Path DLSSBIN\* -DestinationPath DLSSBIN.zip
 
-    - name: Create GitHub Release and Upload Assets
-      uses: ncipollo/release-action@v1
+    - name: Upload artifacts (dlss enabler)
+      uses: actions/upload-artifact@v3
       with:
-        artifacts: |
-          ./DeckyFG.plugin.zip
-          ./DLSSBIN.zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
+        name: dlss.enabler.bin.zip
+        path: DLSSBIN.zip
+
+    - name: Upload artifacts (plugin)
+      uses: actions/upload-artifact@v3
+      with:
+        name: deckyfg.plugin.zip
+        path: DeckyFG.plugin.zip
