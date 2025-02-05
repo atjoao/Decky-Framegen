@@ -24,7 +24,7 @@ jobs:
 
     - name: Install DLSSENABLER
       run: |
-        Start-Process -FilePath .\dlss-enabler-setup.exe -ArgumentList '/verysilent', '/dir="./assets"', '/components="mainfiles,mainfiles\dlldxgi,nonnvidia,nonnvidia\localdir,upscalers,upscalers\opti7,mandatory,optional,mandatory\dxvkconf" /LOG="dlss-enabler-setup.log"' -Wait
+        Start-Process -FilePath .\dlss-enabler-setup.exe -ArgumentList '/verysilent', '/dir="./assets/assets"', '/components="mainfiles,mainfiles\dlldxgi,nonnvidia,nonnvidia\localdir,upscalers,upscalers\opti7,mandatory,optional,mandatory\dxvkconf" /LOG="dlss-enabler-setup.log"' -Wait
     
     - name: Setup bun
       uses: oven-sh/setup-bun@v2
@@ -66,7 +66,7 @@ jobs:
         copy defaults\assets\fgmod.sh DLSSBIN
         copy defaults\assets\fgmod-remover.sh DLSSBIN
         copy defaults\assets\fgmod-uninstaller.sh DLSSBIN
-        New-Item -Path assets\fgmod -ItemType File -Force
+        New-Item -Path assets\assets\fgmod -ItemType File -Force
 
     - name: Show files
       run: |
@@ -75,7 +75,7 @@ jobs:
     - name: Upload artifacts (dlss enabler)
       uses: actions/upload-artifact@v4
       with:
-        name: assets.zip
+        name: assets
         path: assets
 
     - name: Upload artifacts (Log)
