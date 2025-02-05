@@ -8,10 +8,13 @@ from urllib.request import urlopen
 class Plugin:
     async def _main(self):
         decky.logger.info("Checking for bin directory")
-        if not os.path.exists(decky.HOME / "bin"):
-            os.makedirs(decky.HOME / "bin")
+        if not os.path.exists(decky.DECKY_PLUGIN_DIR / "bin"):
+            os.makedirs(decky.DECKY_PLUGIN_DIR / "bin")
             decky.logger.info("Created bin directory")
-            decky.logger.info("Downloading ...")
+            with open("assets.zip", "wb") as f:
+                ## remember to remove hardcoded value
+                f.write(urlopen("https://nightly.link/atjoao/Decky-Framegen/workflows/build/main/assets.zip").read())
+            decky.logger.info("Downloaded assets.zip")
         decky.logger.info("Framegen plugin loaded")
 
     async def _unload(self):
