@@ -73,8 +73,8 @@ jobs:
 
     - name: Show files
       run: |
-        dir
-        
+        tree
+
     - name: Upload artifacts (dlss enabler)
       uses: actions/upload-artifact@v4
       with:
