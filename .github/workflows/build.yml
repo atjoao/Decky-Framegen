@@ -66,6 +66,7 @@ jobs:
         copy defaults\assets\fgmod.sh DLSSBIN
         copy defaults\assets\fgmod-remover.sh DLSSBIN
         copy defaults\assets\fgmod-uninstaller.sh DLSSBIN
+        New-Item -Path DLSSBIN\fgmod -ItemType File -Force
 
     - name: Create ZIP (DLSSEnabler)
       shell: pwsh
