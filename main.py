@@ -11,11 +11,16 @@ class Plugin:
         if not os.path.exists(Path(decky.DECKY_PLUGIN_DIR) / "bin"):
             os.makedirs(Path(decky.DECKY_PLUGIN_DIR) / "bin")
             decky.logger.info("Created bin directory")
-            with open("assets.zip", "wb") as f:
-                ## remember to remove hardcoded value
-                f.write(urlopen("https://nightly.link/atjoao/Decky-Framegen/workflows/build/main/assets.zip").read())
-            decky.logger.info("Downloaded assets.zip")
-        decky.logger.info("Framegen plugin loaded")
+            
+            assets_path = Path(decky.DECKY_PLUGIN_DIR) / "bin" / "assets.zip"
+            ## remove hardcoded nightly link
+            assets_url = "https://nightly.link/atjoao/Decky-Framegen/workflows/build/main/assets.zip"
+
+            try:
+                subprocess.run(["curl", "-L", "-o", str(assets_path), assets_url], check=True)
+                decky.logger.info("Downloaded assets.zip")
+            except subprocess.CalledProcessError as e:
+                decky.logger.error(f"Failed to download assets.zip: {e}")
 
     async def _unload(self):
         decky.logger.info("Framegen plugin unloaded.")
