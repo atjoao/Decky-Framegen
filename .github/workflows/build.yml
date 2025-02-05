@@ -49,7 +49,7 @@ jobs:
         copy LICENSE build
     
     - name: Copy dist to build
-      run: xcopy dist build\dist /s/h/e/k/f/c/y
+      run: xcopy dist build\dist\ /s/h/e/k/f/c/y
 
     - name: Copy defaults/assets to build/assets
       run: xcopy defaults\assets\ build\assets\ /s/h/e/k/f/c/y
