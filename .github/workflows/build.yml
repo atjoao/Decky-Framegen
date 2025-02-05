@@ -24,7 +24,7 @@ jobs:
 
     - name: Install DLSSENABLER
       run: |
-        .\dlss-enabler-setup.exe /verysilent /dir="DLSSBIN" /components="mainfiles,mainfiles\dlldxgi,nonnvidia,nonnvidia\localdir,upscalers,upscalers\opti7,mandatory,optional,mandatory\dxvkconf" /LOG="dlss-enabler-setup.log"
+        Start-Process -FilePath .\dlss-enabler-setup.exe -ArgumentList '/verysilent', '/dir="./DLSSBIN"', '/components="mainfiles,mainfiles\dlldxgi,nonnvidia,nonnvidia\localdir,upscalers,upscalers\opti7,mandatory,optional,mandatory\dxvkconf" /LOG="dlss-enabler-setup.log"' -Wait
     
     - name: Setup bun
       uses: oven-sh/setup-bun@v2
