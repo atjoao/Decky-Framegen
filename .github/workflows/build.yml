@@ -24,7 +24,7 @@ jobs:
 
     - name: Install DLSSENABLER
       run: |
-        Start-Process -FilePath .\dlss-enabler-setup.exe -ArgumentList '/verysilent', '/dir="./DLSSBIN"', '/components="mainfiles,mainfiles\dlldxgi,nonnvidia,nonnvidia\localdir,upscalers,upscalers\opti7,mandatory,optional,mandatory\dxvkconf" /LOG="dlss-enabler-setup.log"' -Wait
+        Start-Process -FilePath .\dlss-enabler-setup.exe -ArgumentList '/verysilent', '/dir="./assets"', '/components="mainfiles,mainfiles\dlldxgi,nonnvidia,nonnvidia\localdir,upscalers,upscalers\opti7,mandatory,optional,mandatory\dxvkconf" /LOG="dlss-enabler-setup.log"' -Wait
     
     - name: Setup bun
       uses: oven-sh/setup-bun@v2
@@ -66,11 +66,7 @@ jobs:
         copy defaults\assets\fgmod.sh DLSSBIN
         copy defaults\assets\fgmod-remover.sh DLSSBIN
         copy defaults\assets\fgmod-uninstaller.sh DLSSBIN
-        New-Item -Path DLSSBIN\fgmod -ItemType File -Force
-
-    - name: Create ZIP (DLSSEnabler)
-      shell: pwsh
-      run: Compress-Archive -Path DLSSBIN\* -DestinationPath DLSSBIN.zip
+        New-Item -Path assets\fgmod -ItemType File -Force
 
     - name: Show files
       run: |
@@ -79,8 +75,8 @@ jobs:
     - name: Upload artifacts (dlss enabler)
       uses: actions/upload-artifact@v4
       with:
-        name: dlss.enabler.bin.zip
-        path: DLSSBIN.zip
+        name: assets.zip
+        path: assets
 
     - name: Upload artifacts (Log)
       uses: actions/upload-artifact@v4

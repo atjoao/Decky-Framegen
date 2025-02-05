@@ -3,9 +3,15 @@ import os
 import subprocess
 import json
 from pathlib import Path
+from urllib.request import urlopen
 
 class Plugin:
     async def _main(self):
+        decky.logger.info("Checking for bin directory")
+        if not os.path.exists(decky.HOME / "bin"):
+            os.makedirs(decky.HOME / "bin")
+            decky.logger.info("Created bin directory")
+            decky.logger.info("Downloading ...")
         decky.logger.info("Framegen plugin loaded")
 
     async def _unload(self):
