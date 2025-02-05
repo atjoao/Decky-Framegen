@@ -24,7 +24,7 @@ jobs:
 
     - name: Install DLSSENABLER
       run: |
-        .\dlss-enabler-setup.exe /verysilent /dir="DLSSBIN" /components="mainfiles,mainfiles\dlldxgi,nonnvidia,nonnvidia\localdir,upscalers,upscalers\opti7,mandatory,optional,mandatory\dxvkconf"
+        .\dlss-enabler-setup.exe /verysilent /dir="DLSSBIN" /components="mainfiles,mainfiles\dlldxgi,nonnvidia,nonnvidia\localdir,upscalers,upscalers\opti7,mandatory,optional,mandatory\dxvkconf" /LOG="dlss-enabler-setup.log"
     
     - name: Setup bun
       uses: oven-sh/setup-bun@v2
@@ -80,6 +80,12 @@ jobs:
       with:
         name: dlss.enabler.bin.zip
         path: DLSSBIN.zip
+
+    - name: Upload artifacts (Log)
+      uses: actions/upload-artifact@v4
+      with:
+        name: dlss.enabler.log
+        path: dlss-enabler-setup.log
 
     - name: Upload artifacts (plugin)
       uses: actions/upload-artifact@v4
