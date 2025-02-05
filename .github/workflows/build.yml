@@ -26,15 +26,10 @@ jobs:
       run: |
         .\dlss-enabler-setup.exe /verysilent /dir="%CD%/DLSSBIN" /components="mainfiles,mainfiles\dlldxgi,nonnvidia,nonnvidia\localdir,upscalers,upscalers\opti7,mandatory,optional,mandatory\dxvkconf"
     
-    - name: Install Bun
-      shell: pwsh
-      run: |
-        irm bun.sh/install.ps1 | iex
-
-    - name: Build DeckyFramegen
-      run: |
-        bun install
-        bun run build
+    - name: Bun setup
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
 
     - name: Create build folder
       run: |
