@@ -73,13 +73,13 @@ jobs:
       run: Compress-Archive -Path DLSSBIN\* -DestinationPath DLSSBIN.zip
 
     - name: Upload artifacts (dlss enabler)
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: dlss.enabler.bin.zip
         path: DLSSBIN.zip
 
     - name: Upload artifacts (plugin)
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: deckyfg.plugin.zip
         path: DeckyFG.plugin.zip
