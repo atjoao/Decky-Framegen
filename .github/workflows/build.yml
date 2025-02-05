@@ -1,0 +1,75 @@
+name: Decky Framegen Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Download DLSSENABLER
+      shell: pwsh
+      run: |
+        $url = "https://github.com/artur-graniszewski/DLSS-Enabler/releases/download/3.03.000.0-trunk/dlss-enabler-setup-3.03.000.0-trunk.exe"
+        Invoke-WebRequest -Uri $url -OutFile dlss-enabler-setup.exe
+
+    - name: Install DLSSENABLER
+      run: |
+        .\dlss-enabler-setup.exe /verysilent /dir="%CD%/DLSSBIN" /components="mainfiles,mainfiles\dlldxgi,nonnvidia,nonnvidia\localdir,upscalers,upscalers\opti7,mandatory,optional,mandatory\dxvkconf"
+    
+    - name: Install Bun
+      shell: pwsh
+      run: |
+        irm bun.sh/install.ps1 | iex
+
+    - name: Build DeckyFramegen
+      run: |
+        bun install
+        bun run build
+
+    - name: Create build folder
+      run: |
+        mkdir build
+    
+    - name: Copy files to build
+      run: |
+        copy main.py build
+        copy package.json build
+        copy plugin.json build
+        copy README.md build
+        copy LICENSE build
+    
+    - name: Copy dist to build
+      run: xcopy dist build\dist /s/h/e/k/f/c/y
+
+    - name: Copy defaults/assets to build/assets
+      run: xcopy defaults\assets\ build\assets\ /s/h/e/k/f/c/y
+
+    - name: Create build/bin folder
+      run: mkdir build\bin
+
+    - name: Create ZIP (plugin)
+      shell: pwsh
+      run: Compress-Archive -Path build\* -DestinationPath DeckyFG.plugin.zip
+
+    - name: Copy more files
+      run: |
+        copy defaults\assets\fgmod.sh DLSSBIN
+        copy defaults\assets\fgmod-remover.sh DLSSBIN
+        copy defaults\assets\fgmod-uninstaller.sh DLSSBIN
+        type nul > DLSSBIN\fgmod
+    
+    - name: Create ZIP (DLSSEnabler)
+      shell: pwsh
+      run: Compress-Archive -Path DLSSBIN\* -DestinationPath DLSSBIN.zip
+
+    
